@@ -2,20 +2,40 @@ package com.bridgelabz.hotelreservation;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 public class HotelsTest {
 
-	Hotels h1;
+	Hotels lw, bw, rw;
 	
 	@Test
 	public void addHotels() {
-		h1 = new Hotels();
-		h1.addHotels("LakeWood","3",110,80,90,80);
-		h1.addHotels("BridgeWood","4",160,110,60,50);
-		h1.addHotels("RidgeWood","5",220,100,150,40);
-		int size = h1.size();
+		
+		HashMap<CustomerType, Rates> rate = new HashMap<CustomerType,Rates>();
+		rate.put(CustomerType.REGULAR, new Rates(110,90));
+		rate.put(CustomerType.REWARD, new Rates(80,80));
+		lw = new Hotels("LakeWood",3,rate);
+		lw.addHotels(lw);
+		
+		rate = new HashMap<>();
+		rate.put(CustomerType.REGULAR, new Rates(160,60));
+		rate.put(CustomerType.REWARD, new Rates(110,50));
+		bw = new Hotels("BridgeWood",4,rate);
+		bw.addHotels(bw);
+		
+		rate = new HashMap<>();
+		rate.put(CustomerType.REGULAR, new Rates(220,150));
+		rate.put(CustomerType.REWARD, new Rates(100,40));
+		rw = new Hotels("RidgeWood",5,rate);
+		rw.addHotels(rw);
+		
+		int size = lw.size();
+		size += bw.size();
+		size += rw.size();
 		assertEquals(3, size);
 
 	}
+	
 }
