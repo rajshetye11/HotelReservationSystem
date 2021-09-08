@@ -74,11 +74,20 @@ public class HotelsTest {
 	    }
 
 	 @Test
-	    public void whenGivenDateRange_ShouldReturnBestRatedCheapestHotelForRewarded() {
-	    	DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy");    	
-	    	LocalDate date1 = LocalDate.of(2020,9,11);
-	    	LocalDate date2 = LocalDate.of(2020,9,12);
-	        h1.cheapestHotelRewarded(date1,date2);
-	    }
+	    public void bestRatedCheapestHotelForRewarded() throws HotelsException {
+	    	String date1 = "2020-09-11";
+	    	String date2 = "2020-09-12";
+	    	
+	    	try {
+	    		DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        	LocalDate d1 = LocalDate.parse(date1,date);
+	        	LocalDate d2 = LocalDate.parse(date2,date);
+	        	h1.cheapestHotelRewarded(d1,d2);
+	    	}
+	    	catch (Exception e) {
+	    		throw new HotelsException("Invalid date");
+	    	}
 
+	        
+	    }
 }
