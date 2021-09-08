@@ -95,6 +95,14 @@ public class HotelReservationSystem {
        return hotel.get(rate).hotelName;
     }
     
-    
+    public void bestRatedHotel(LocalDate first, LocalDate second) {
+        ArrayList<Integer> hotelRating = new ArrayList<>();
+        for (int i=0; i<hotel.size(); i++) {
+     	   hotelRating.add(hotel.get(i).rating);
+        }
+        
+        int n = hotelRating.indexOf(Collections.max(hotelRating));
+        System.out.println("Best Rated hotel  " + hotel.get(n).hotelName + " Ratings : " +hotel.get(n).rating);
+    } 
 
 }
