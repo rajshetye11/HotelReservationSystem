@@ -69,6 +69,7 @@ public class HotelsTest {
 	    	LocalDate date1 = LocalDate.of(2020,9,11);
 	    	LocalDate date2 = LocalDate.of(2020,9,12);
 	    	h1.bestRatedHotel(date1,date2);
+	    	h1.findCheapestHotel(date1, date2);
 	    	
 	    }
 }
