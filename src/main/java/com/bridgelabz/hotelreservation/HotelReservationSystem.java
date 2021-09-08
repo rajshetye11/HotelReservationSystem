@@ -17,7 +17,9 @@ public class HotelReservationSystem {
 		hotel.add(hotels);
 	}
 	
-	
+	Integer[] price ={0,0,0};
+	  
+	  
     public String findCheapestHotel(LocalDate first, LocalDate second){
         ArrayList<LocalDate> dateArr = new ArrayList<LocalDate>(3);
 
@@ -29,7 +31,7 @@ public class HotelReservationSystem {
             NoOFDays--;
         }
         
-        Integer[] price ={0,0,0};
+      
         for (int i=0; i<dateArr.size(); i++){
             for (int j=0; j<hotel.size(); j++) {
 
@@ -47,5 +49,52 @@ public class HotelReservationSystem {
        return hotel.get(rate).hotelName;
     }
     
-	
+    
+    public String bestRatingCheapestHotel(LocalDate first, LocalDate second) {
+    	Hotels[] hotelsList = new Hotels[3];
+    	ArrayList<Integer> hotelRating = new ArrayList<>();
+        ArrayList<LocalDate> dateArr = new ArrayList<LocalDate>();
+
+        dateArr.add(first);
+        long noOFDays = ChronoUnit.DAYS.between(first,second);
+
+        while (noOFDays>0){
+        	dateArr.add(dateArr.get(dateArr.size()-1).plusDays(1));
+            noOFDays--;
+        }
+                
+        for (int i=0; i<dateArr.size(); i++){
+            for (int j=0; j<hotel.size(); j++) {
+
+                if (dateArr.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || dateArr.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+                    price[j] += hotel.get(j).hotelRates.get(CustomerType.REGULAR).weekEnd;
+                }
+                else
+                    price[j] += hotel.get(j).hotelRates.get(CustomerType.REGULAR).weekDay;
+            }
+        }
+    	
+    	for(int i=0; i<hotel.size(); i++) {
+    		for(int j=0; j<price.length; j++) {
+    			if(i != j) {
+    				if(price[i].equals(price[j])) {
+    					hotelsList[i] = hotel.get(i);
+    				}
+    			}
+    		}
+    	}
+    	
+       for(int i=0; i<hotelsList.length; i++) {
+    	   if(hotelsList[i] != null) {
+        	   hotelRating.add(hotel.get(i).rating);
+    	   }
+       }
+
+       Integer rate = hotelRating.indexOf(Collections.max(hotelRating));
+       System.out.println("Cheapest hotel with best Ratings: " + hotel.get(rate).hotelName + " Ratings: " +hotel.get(rate).rating+ " with total rates: " +price[rate]);
+       return hotel.get(rate).hotelName;
+    }
+    
+    
+
 }

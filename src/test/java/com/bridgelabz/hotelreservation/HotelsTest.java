@@ -50,4 +50,16 @@ public class HotelsTest {
 	        String h2 = h1.findCheapestHotel(date1,date2);
 	        assertEquals("LakeWood", h2);
 	    }
+	 
+	 @Test
+	    public void BestRatingCheapestHotel() {
+	    	DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy");    	
+	    	String firstDate = "11Sep2020";
+	    	String secondDate = "12Sep2020";
+	    	
+	        LocalDate date1 = LocalDate.parse(firstDate,date);
+	        LocalDate date2 = LocalDate.parse(secondDate,date);
+	        String h2 =  h1.bestRatingCheapestHotel(date1,date2);
+	        assertEquals("BridgeWood", h2);
+	    }
 }
