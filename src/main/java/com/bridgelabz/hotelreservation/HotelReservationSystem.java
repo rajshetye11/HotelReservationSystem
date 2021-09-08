@@ -18,7 +18,7 @@ public class HotelReservationSystem {
 	}
 	
 	Integer[] price ={0,0,0};
-	  
+	Integer[] priceRewarded = {0,0,0};
 	  
     public String findCheapestHotel(LocalDate first, LocalDate second){
         ArrayList<LocalDate> dateArr = new ArrayList<LocalDate>(3);
@@ -105,4 +105,58 @@ public class HotelReservationSystem {
         System.out.println("Best Rated hotel  " + hotel.get(n).hotelName + " Ratings : " +hotel.get(n).rating);
     } 
 
+
+    public void cheapestHotelRewarded(LocalDate first, LocalDate second) {
+    	Hotels[] hotelsReward = new Hotels[3];
+    	ArrayList<Integer> hotelsRatingReward = new ArrayList<>();
+        ArrayList<LocalDate> dateArr = new ArrayList<LocalDate>();
+
+        dateArr.add(first);
+        long noOFDays = ChronoUnit.DAYS.between(first,second);
+
+        while (noOFDays>0){
+        	dateArr.add(dateArr.get(dateArr.size()-1).plusDays(1));
+            noOFDays--;
+        }
+                
+        for (int i=0; i<dateArr.size(); i++){
+            for (int j=0; j<hotel.size(); j++) {
+
+                if (dateArr.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || dateArr.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+                	priceRewarded[j] += hotel.get(j).hotelRates.get(CustomerType.REWARD).weekEnd;
+                }
+                else
+                	priceRewarded[j] += hotel.get(j).hotelRates.get(CustomerType.REWARD).weekDay;
+            }
+        }
+        int rate = Arrays.asList(priceRewarded).indexOf(Collections.min(Arrays.asList(priceRewarded)));
+       
+    	
+    	for(int i=0; i<hotel.size(); i++) {
+    		for(int j=0; j<priceRewarded.length; j++) {
+    			if(i != j) {   				
+    				if(priceRewarded[i].equals(rate)) {
+    					hotelsReward[i] = hotel.get(i);
+    				}
+    			}
+    		}
+    	}
+    	
+       for(int i=0; i<hotelsReward.length; i++) {
+    	   if(hotelsReward[i] != null) {
+    		   hotelsRatingReward.add(hotel.get(i).rating);
+    	   }
+       }
+       
+       if(hotelsReward[0] == null && hotelsReward[0] == null && hotelsReward[0] == null) {
+    	   int n = rate;
+    	   System.out.println("Cheapest hotel with best Ratings for Rewarded Customer : " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ "  Rates: " +priceRewarded[n]);
+       }
+       else {
+           int n = hotelsRatingReward.indexOf(Collections.max(hotelsRatingReward));
+           System.out.println("Cheapest hotel with best Ratings for Rewarded Customer: " + hotel.get(n).hotelName + " Ratings: " +hotel.get(n).rating+ " Ratess: " +priceRewarded[n]);
+       }
+
+       
+    }
 }
