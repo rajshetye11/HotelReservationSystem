@@ -43,7 +43,7 @@ public class HotelsTest {
 	    public void cheapestHotel() {
 	    	DateTimeFormatter date = DateTimeFormatter.ofPattern("ddMMMyyyy");
 	    	String firstDate = "10Sep2020";
-	    	String secondDate = "11Sep2020";
+	    	String secondDate = "12Sep2020";
 	    	
 	        LocalDate date1 = LocalDate.parse(firstDate,date);
 	        LocalDate date2 = LocalDate.parse(secondDate,date);

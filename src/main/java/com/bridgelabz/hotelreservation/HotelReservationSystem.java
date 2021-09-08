@@ -41,7 +41,7 @@ public class HotelReservationSystem {
             }
         }
 
-        int rate = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
+       Integer rate = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
        System.out.println("Cheapest hotel is  " + hotel.get(rate).hotelName + " Rate : "+ price[rate]);
        
        return hotel.get(rate).hotelName;
